@@ -1,10 +1,13 @@
 # The base image
-FROM python:3 as builder
-WORKDIR /workspace
+FROM gcc:4.9 AS builder
+RUN apt update && apt install -y cmake python3
+WORKDIR /usr/src/app
 #Installing the application
 ADD scripts scripts
 ADD src src
-# Compile if necessary
+ADD CMakeLists.txt CMakeLists.txt
+RUN mkdir build && cd build && cmake .. && make -j4 && make install
+
 
 # Define entrypoint
 ENV MODE "live"
