@@ -3,6 +3,7 @@ import argparse
 import os
 parser = argparse.ArgumentParser()
 parser.add_argument('-a', '--argument1',
+                    required=True,
                     dest='arg1',
                     help='First argument',
                     default="1",
