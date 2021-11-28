@@ -1,5 +1,5 @@
 #### The base image in which we develop ####
-FROM althack/ros2:galactic-dev AS developer
+FROM althack/ros2:galactic-full AS developer
 RUN apt update && apt install -y libboost-python1.71-dev libopencv-dev 
 WORKDIR /workspace
 
