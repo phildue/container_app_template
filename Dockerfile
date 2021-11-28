@@ -1,4 +1,4 @@
-#### The base image in which we develop ####
+#### The base image in which we develop, containing also the GUI tools ####
 FROM althack/ros2:galactic-full AS developer
 RUN apt update && apt install -y libboost-python1.71-dev libopencv-dev 
 WORKDIR /workspace
@@ -18,6 +18,10 @@ RUN apt update && apt install -y libboost-python1.71-dev libopencv-dev
 SHELL ["/bin/bash"]
 COPY --from=builder --chown=ros:ros /home/ros/ws/install /app
 WORKDIR /app
-ENTRYPOINT ["/bin/bash", "-c","source setup.bash && ros2 launch composition composition_demo.launch.py"]
+# Use entrypoint script so environment gets sourced correctly
+COPY scripts/entrypoint.sh entrypoint.sh
+# The default entrypoint points to the launch file 
+ENTRYPOINT ["./entrypoint.sh","ros2","launch","composition","composition_demo.launch.py"]
+
 
 

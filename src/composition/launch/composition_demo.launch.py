@@ -17,12 +17,19 @@
 import launch
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+from launch.actions import DeclareLaunchArgument
 
 
 def generate_launch_description():
+    container_name = DeclareLaunchArgument(
+                'container_name',
+                default_value = 'container_name',
+                description = 'Name of the composition container')
+
+
     """Generate launch description with multiple components."""
     container = ComposableNodeContainer(
-            name='my_container',
+            name=launch.substitutions.LaunchConfiguration('container_name'),
             namespace='',
             package='rclcpp_components',
             executable='component_container_mt',
@@ -39,4 +46,4 @@ def generate_launch_description():
             output='screen',
     )
 
-    return launch.LaunchDescription([container])
+    return launch.LaunchDescription([container_name, container])

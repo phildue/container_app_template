@@ -10,3 +10,4 @@ docker run \
 --security-opt=apparmor:unconfined \
 --volume=/tmp/.X11-unix:/tmp/.X11-unix \
 app_template "$@"
+#Pass arguments to the script to the entrypoint
